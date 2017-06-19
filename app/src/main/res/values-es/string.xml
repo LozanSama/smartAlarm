@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Alarma Inteligente</string>
+
+    <string name="login">Entrar</string>
+    <string name="no_account">¿No tienes cuenta? ¡Crea una!</string>
+
+    <string name="errorEmail">Introduce una direccion email valida</string>
+    <string name="errorPassword">La contraseña tiene que tener entre 4 y 10 carácteres.</string>
+    <string name="login_failed">Inicio de sesión fallido</string>
+    <string name="hint_et_password">Contraseña</string>
+    <string name="hint_et_email">Correo electrónico</string>
+
+    <string name="sing_up">Crear cuenta</string>
+    <string name="have_account">¿Ya eres miembro? ¡Entra!</string>
+
+</resources>

@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Smart Alarm</string>
+    <string name="login">Login</string>
+    <string name="no_account">No account yet? Create one</string>
+    <string name="errorEmail">Enter a valid email address</string>
+    <string name="errorPassword">Between 4 and 10 alphanumeric characters</string>
+
+    <string name="hint_et_password">Password</string>
+    <string name="hint_et_email">Email</string>
+    <string name="sing_up">Create Account</string>
+    <string name="have_account">Already a member? Login</string>
+
+    <string name="sing_up_failed">SingUp failed</string>
+    <string name="sing_up_successful">SingUp successful</string>
+
+    <string name="login_failed">Login failed</string>
+    <string name="login_successful">Login successful</string>
+
+</resources>
