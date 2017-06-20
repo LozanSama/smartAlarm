@@ -2,20 +2,20 @@ package com.patatos.lozansama.smartalarmclock.data.dto;
 
 import io.realm.RealmObject;
 
-public class AlarmsUser extends RealmObject {
+public class AlarmsUserR extends RealmObject {
 
-    String name;
-    String hour;
-    String days;
-    boolean isTurnOn;
+    private String name;
+    private String hour;
+    private boolean temperature;
+    private boolean isTurnOn;
 
-    public AlarmsUser() {
+    public AlarmsUserR() {
     }
 
-    public AlarmsUser(String name, String hour, String days, boolean isTurnOn) {
+    public AlarmsUserR(String name, String hour, boolean temperature, boolean isTurnOn) {
         this.name = name;
         this.hour = hour;
-        this.days = days;
+        this.temperature = temperature;
         this.isTurnOn = isTurnOn;
     }
 
@@ -35,12 +35,12 @@ public class AlarmsUser extends RealmObject {
         this.hour = hour;
     }
 
-    public String getDays() {
-        return days;
+    public boolean getTemperature() {
+        return temperature;
     }
 
-    public void setDays(String days) {
-        this.days = days;
+    public void setTemperature(boolean temperature) {
+        this.temperature = temperature;
     }
 
     public boolean isTurnOn() {

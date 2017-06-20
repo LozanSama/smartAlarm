@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/colorBlack"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -19,20 +20,23 @@
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:text="@string/app_name"
+            android:textColor="@color/colorGrey"
             android:textSize="21sp" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:textColorHint="@color/colorGrey">
 
             <EditText
                 android:id="@+id/et_email_sing_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_et_email"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorWhite" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -40,14 +44,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:textColorHint="@color/colorGrey">
 
             <EditText
                 android:id="@+id/et_password_sing_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_et_password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textColor="@color/colorWhite" />
 
         </android.support.design.widget.TextInputLayout>
 

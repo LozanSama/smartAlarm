@@ -20,13 +20,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.ui_login.activities.LoginActivity"
             android:theme="@style/AppThemeNoActionBar" />
+
         <activity
             android:name=".ui.ui_login.activities.RegistrationActivity"
             android:theme="@style/AppThemeNoActionBar" />
-        <activity android:name=".ui.ui_alarm_list.activities.AlarmList"></activity>
+
+        <activity android:name=".ui.ui_alarm_list.activities.AlarmList" />
+
+        <activity android:name=".ui.ui_add_modified_alarm.activities.AddModifiedAlarm" />
     </application>
 
 </manifest>

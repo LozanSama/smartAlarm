@@ -16,4 +16,9 @@
     <string name="login_failed">Login failed</string>
     <string name="login_successful">Login successful</string>
 
+
+    <string name="add_modified_tv">Add/Modified Alarm</string>
+    <string name="name_alarm">Set the name of your alarm</string>
+    <string name="show_temperature">Show temperature</string>
+
 </resources>

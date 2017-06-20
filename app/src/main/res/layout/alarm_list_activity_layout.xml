@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:id="@+id/rv_item_list"
-    android:name="com.patatos.lozansama.smartalarmclock"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    app:layoutManager="LinearLayoutManager"
-    tools:context="com.patatos.lozansama.smartalarmclock.ui.ui_alarm_list.activities.AlarmList"/>
+    android:background="@color/colorBlack">
+
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/rv_item_list"
+        android:name="com.patatos.lozansama.smartalarmclock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="com.patatos.lozansama.smartalarmclock.ui.ui_alarm_list.activities.AlarmList" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fb_add_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_add_alarm"
+        app:borderWidth="0dp" />
+</RelativeLayout>

@@ -8,7 +8,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.patatos.lozansama.smartalarmclock.R;
-import com.patatos.lozansama.smartalarmclock.data.dto.User;
 import com.patatos.lozansama.smartalarmclock.ui.ui_alarm_list.activities.AlarmList;
 import com.patatos.lozansama.smartalarmclock.ui.ui_login.activities.RegistrationActivity;
 
@@ -29,7 +28,6 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.splash_layout);
 
         initRealm();
-        final Realm realm = Realm.getDefaultInstance();
 
         new CountDownTimer(1000, 2000) {
             @Override
@@ -39,16 +37,10 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                if (!realm.isEmpty()) {
-                    realm.where(User.class).findAll();
-                    intent = new Intent(SplashActivity.this, AlarmList.class);
-                    startActivity(intent);
-                    finish();
-                } else {
                     intent = new Intent(SplashActivity.this, RegistrationActivity.class);
                     startActivity(intent);
                     finish();
-                }
+
             }
         }.start();
 

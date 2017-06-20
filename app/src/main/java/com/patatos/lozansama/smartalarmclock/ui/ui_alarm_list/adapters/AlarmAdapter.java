@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.patatos.lozansama.smartalarmclock.R;
-import com.patatos.lozansama.smartalarmclock.data.dto.AlarmsUser;
+import com.patatos.lozansama.smartalarmclock.data.dto.AlarmsUserR;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ import butterknife.ButterKnife;
 
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
 
-    private List<AlarmsUser> data;
+    private List<AlarmsUserR> data;
 
-    public AlarmAdapter(List<AlarmsUser> data) {
+    public AlarmAdapter(List<AlarmsUserR> data) {
         this.data = data;
     }
 
@@ -37,10 +37,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindTitular(AlarmsUser alarmsUser) {
-            tvDays.setText(alarmsUser.getDays());
-            tvName.setText(alarmsUser.getDays());
-            tvHour.setText(alarmsUser.getDays());
+        public void bindTitular(AlarmsUserR alarmsUser) {
+            tvDays.setText("");
+            tvName.setText("");
+            tvHour.setText("");
         }
     }
 
@@ -56,7 +56,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     @Override
     public void onBindViewHolder(AlarmViewHolder viewHolder, int position) {
-        AlarmsUser item = data.get(position);
+        AlarmsUserR item = data.get(position);
 
         viewHolder.bindTitular(item);
     }

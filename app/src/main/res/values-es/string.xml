@@ -14,4 +14,8 @@
     <string name="sing_up">Crear cuenta</string>
     <string name="have_account">¿Ya eres miembro? ¡Entra!</string>
 
+    <string name="add_modified_tv">Añadir o modificar una alarma</string>
+
+    <string name="show_temperature">Mostrar temperatura</string>
+    <string name="name_alarm">Introduzca el nombre de su alarma</string>
 </resources>

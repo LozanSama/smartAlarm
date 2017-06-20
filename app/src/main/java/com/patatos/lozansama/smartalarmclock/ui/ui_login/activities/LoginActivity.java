@@ -55,12 +55,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    RealmUtil.addToRealm(realm, email, password);
+                    RealmUtil.addToRealm(realm, email, null);
                     startActivity(intent);
                     finish();
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.login_failed,
-                            Toast.LENGTH_SHORT).show();
                 }
             }
         };
