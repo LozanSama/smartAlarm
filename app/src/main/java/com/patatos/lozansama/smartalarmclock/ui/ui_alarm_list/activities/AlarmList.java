@@ -2,6 +2,7 @@ package com.patatos.lozansama.smartalarmclock.ui.ui_alarm_list.activities;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +18,8 @@ import com.patatos.lozansama.smartalarmclock.R;
 import com.patatos.lozansama.smartalarmclock.data.domain.AlarmUser;
 import com.patatos.lozansama.smartalarmclock.data.domain.User;
 import com.patatos.lozansama.smartalarmclock.ui.ui_add_modified_alarm.activities.AddModifiedAlarm;
-import com.patatos.lozansama.smartalarmclock.ui.ui_alarm_list.OnItemClickInterface;
 import com.patatos.lozansama.smartalarmclock.ui.ui_alarm_list.adapters.AlarmAdapter;
+import com.patatos.lozansama.smartalarmclock.ui.ui_alarm_list.interfaces.OnItemClickInterface;
 import com.patatos.lozansama.smartalarmclock.util.AlarmReceiver;
 import com.patatos.lozansama.smartalarmclock.util.RealmUtil;
 
@@ -36,6 +37,7 @@ public class AlarmList extends AppCompatActivity implements OnItemClickInterface
     final Realm realm = Realm.getDefaultInstance();
     User userFromFB;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
     AlarmManager alarmManager;
     Calendar calendar;
     PendingIntent pendingIntent;
@@ -56,7 +58,6 @@ public class AlarmList extends AppCompatActivity implements OnItemClickInterface
             addDataFromFirebase();
         } else {
             addDataFromRealm();
-
         }
 
     }
@@ -80,26 +81,6 @@ public class AlarmList extends AppCompatActivity implements OnItemClickInterface
                 Log.e("The read failed: ", databaseError.getMessage());
             }
         });
-    }
-
-    public void setAlarmsOn(){
-       setPendingItem();
-        for (AlarmUser a:  userFromFB.getListAlarm()
-             ) {
-            if (a.isTurnOn()) {
-                calendar.set(Calendar.HOUR, a.getHour());
-                calendar.set(Calendar.MINUTE, a.getMinute());
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()
-                    , pendingIntent);
-            }
-        }
-
-    }
-
-    private void setPendingItem() {
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, 0,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private void addDataFromRealm() {
@@ -129,7 +110,8 @@ public class AlarmList extends AppCompatActivity implements OnItemClickInterface
     }
 
     @Override
-    public void onItemLongClick(int position) {
+    public void onItemLongClick(AlarmUser alarmUser, int position) {
+        turnOffAlarm(alarmUser);
         RealmUtil.deletedFromRealm(realm, position);
     }
 
@@ -145,6 +127,26 @@ public class AlarmList extends AppCompatActivity implements OnItemClickInterface
         calendar.set(Calendar.MINUTE, alarmUser.getMinute());
         alarmManager.cancel(pendingIntent);
         setAlarmsOn();
+    }
+
+    public void setAlarmsOn() {
+        setPendingItem();
+        for (AlarmUser a : userFromFB.getListAlarm()
+                ) {
+            if (a.isTurnOn()) {
+                calendar.set(Calendar.HOUR_OF_DAY, a.getHour());
+                calendar.set(Calendar.MINUTE, a.getMinute());
+                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()
+                        , pendingIntent);
+            }
+        }
+
+    }
+
+    private void setPendingItem() {
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(AlarmList.this, 0,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     @Override

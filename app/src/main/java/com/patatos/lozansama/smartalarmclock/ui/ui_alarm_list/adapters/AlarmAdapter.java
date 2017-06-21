@@ -8,13 +8,11 @@ import android.view.ViewGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.firebase.database.ValueEventListener;
 import com.patatos.lozansama.smartalarmclock.R;
 import com.patatos.lozansama.smartalarmclock.data.domain.AlarmUser;
-import com.patatos.lozansama.smartalarmclock.ui.ui_alarm_list.OnItemClickInterface;
 import com.patatos.lozansama.smartalarmclock.ui.ui_alarm_list.activities.AlarmList;
+import com.patatos.lozansama.smartalarmclock.ui.ui_alarm_list.interfaces.OnItemClickInterface;
 
-import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -71,7 +69,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
                 @Override
                 public boolean onLongClick(View v) {
                     data.remove(alarmsUser);
-                    listener.onItemLongClick(getAdapterPosition());
+                    listener.onItemLongClick(alarmsUser, getAdapterPosition());
                     notifyDataSetChanged();
                     return true;
                 }

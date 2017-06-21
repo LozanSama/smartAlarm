@@ -29,15 +29,14 @@ public class RingtoneService extends Service {
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
-    {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         final NotificationManager mNM = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
 
         Intent intent1 = new Intent(this.getApplicationContext(), AlarmList.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
 
-        Notification mNotify  = new Notification.Builder(this)
+        Notification mNotify = new Notification.Builder(this)
                 .setContentTitle("Alarm is sounding!")
                 .setContentText("Turn off!")
                 .setSmallIcon(R.drawable.ic_add_alarm)
@@ -45,23 +44,7 @@ public class RingtoneService extends Service {
                 .setAutoCancel(true)
                 .build();
 
-        String state = intent.getExtras().getString("extra");
-
-        assert state != null;
-        switch (state) {
-            case "no":
-                startId = 0;
-                break;
-            case "yes":
-                startId = 1;
-                break;
-            default:
-                startId = 0;
-                break;
-        }
-
-
-        if(!this.isRunning && startId == 1) {
+        if (!this.isRunning && startId == 1) {
             Log.e("not sound ", "start");
 
             mediaPlayer = MediaPlayer.create(this, R.raw.black);
@@ -69,27 +52,21 @@ public class RingtoneService extends Service {
 
             mNM.notify(0, mNotify);
             this.isRunning = true;
-
-        }
-        else if (!this.isRunning && startId == 0){
+        } else if (!this.isRunning && startId == 0) {
             Log.e("not sound ", "end");
 
             this.isRunning = false;
-        }
-
-        else if (this.isRunning && startId == 1){
+        } else if (this.isRunning && startId == 1) {
             Log.e("is sound ", "start");
 
             this.isRunning = true;
-        }
-        else {
+        } else {
             Log.e("is sound ", " end");
 
             mediaPlayer.stop();
             mediaPlayer.reset();
             this.isRunning = false;
         }
-
         return START_NOT_STICKY;
     }
 
@@ -99,9 +76,6 @@ public class RingtoneService extends Service {
         super.onDestroy();
         this.isRunning = false;
     }
-
-
-
 
 
 }
