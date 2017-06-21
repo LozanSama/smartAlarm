@@ -4,19 +4,39 @@ import io.realm.RealmObject;
 
 public class AlarmsUserR extends RealmObject {
 
+    private int id;
     private String name;
-    private String hour;
+    private int hour;
+    private int minute;
     private boolean temperature;
     private boolean isTurnOn;
 
     public AlarmsUserR() {
     }
 
-    public AlarmsUserR(String name, String hour, boolean temperature, boolean isTurnOn) {
+    public AlarmsUserR(int id, String name, int hour, int minute, boolean temperature, boolean isTurnOn) {
+        this.id = id;
         this.name = name;
         this.hour = hour;
+        this.minute = minute;
         this.temperature = temperature;
         this.isTurnOn = isTurnOn;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
     }
 
     public String getName() {
@@ -27,11 +47,11 @@ public class AlarmsUserR extends RealmObject {
         this.name = name;
     }
 
-    public String getHour() {
+    public int getHour() {
         return hour;
     }
 
-    public void setHour(String hour) {
+    public void setHour(int hour) {
         this.hour = hour;
     }
 

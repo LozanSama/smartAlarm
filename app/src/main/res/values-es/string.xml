@@ -18,4 +18,10 @@
 
     <string name="show_temperature">Mostrar temperatura</string>
     <string name="name_alarm">Introduzca el nombre de su alarma</string>
+    <string name="temperature_on">Mostrar temperatura: activado</string>
+    <string name="temperature_off">Mostrar temperatura: desactivado</string>
+    <string name="welcome_back">Bienvenido!</string>
+    <string name="forgot_password">¿Ha olvidado la contraseña?</string>
+
+    <string name="introduce_email">Por favor, introduzca el email em el formulario "email"</string>
 </resources>

@@ -20,5 +20,10 @@
     <string name="add_modified_tv">Add/Modified Alarm</string>
     <string name="name_alarm">Set the name of your alarm</string>
     <string name="show_temperature">Show temperature</string>
+    <string name="temperature_on">Temperature option activated</string>
+    <string name="temperature_off">Temperature option deactivated</string>
+    <string name="welcome_back">Welcome back!</string>
 
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="introduce_email">Please, introduce your email in the email entrance</string>
 </resources>

@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -34,4 +35,8 @@
         <activity android:name=".ui.ui_add_modified_alarm.activities.AddModifiedAlarm" />
     </application>
 
+    <receiver android:name=".util.AlarmReceiver" />
+    <service
+        android:name=".util.RingtoneService"
+        android:enabled="true" />
 </manifest>

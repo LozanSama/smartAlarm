@@ -1,20 +1,43 @@
 package com.patatos.lozansama.smartalarmclock.data.domain;
 
 
-public class AlarmUser {
+import java.io.Serializable;
+
+public class AlarmUser implements Serializable {
+
+    private int id;
     private String name;
-    private String hour;
+    private int hour;
+    private int minute;
     private boolean temperature;
     private boolean isTurnOn;
 
     public AlarmUser() {
     }
 
-    public AlarmUser(String name, String hour, boolean temperature, boolean isTurnOn) {
+    public AlarmUser(int id, String name, int hour, int minute, boolean temperature, boolean isTurnOn) {
+        this.id = id;
         this.name = name;
         this.hour = hour;
+        this.minute = minute;
         this.temperature = temperature;
         this.isTurnOn = isTurnOn;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
     }
 
     public String getName() {
@@ -25,11 +48,11 @@ public class AlarmUser {
         this.name = name;
     }
 
-    public String getHour() {
+    public int getHour() {
         return hour;
     }
 
-    public void setHour(String hour) {
+    public void setHour(int hour) {
         this.hour = hour;
     }
 

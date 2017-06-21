@@ -13,7 +13,10 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.patatos.lozansama.smartalarmclock.R;
+import com.patatos.lozansama.smartalarmclock.data.domain.User;
 import com.patatos.lozansama.smartalarmclock.ui.ui_alarm_list.activities.AlarmList;
 import com.patatos.lozansama.smartalarmclock.util.RealmUtil;
 import com.patatos.lozansama.smartalarmclock.util.ValidateUtil;
@@ -36,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private String email;
     private String password;
 
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (!task.isSuccessful()) {
-                        Toast.makeText(getBaseContext(), R.string.login_failed,
+                        Toast.makeText(getBaseContext(), task.getException().getMessage(),
                                 Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getBaseContext(), R.string.login_successful,
@@ -93,6 +97,15 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
+    @OnClick(R.id.tv_forgot_password)
+    public void onClickForgot() {
+        if (etEmail.getText().toString().isEmpty()) {
+            Toast.makeText(getBaseContext(), R.string.introduce_email,
+                    Toast.LENGTH_LONG).show();
+        } else {
+            mFireAuth.sendPasswordResetEmail(etEmail.getText().toString());
+        }
+    }
 
     @Override
     protected void onStart() {

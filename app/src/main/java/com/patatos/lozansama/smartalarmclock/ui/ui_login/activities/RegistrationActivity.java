@@ -13,7 +13,10 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.patatos.lozansama.smartalarmclock.R;
+import com.patatos.lozansama.smartalarmclock.data.domain.User;
 import com.patatos.lozansama.smartalarmclock.ui.ui_alarm_list.activities.AlarmList;
 import com.patatos.lozansama.smartalarmclock.util.RealmUtil;
 import com.patatos.lozansama.smartalarmclock.util.ValidateUtil;
@@ -38,6 +41,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private Intent intent;
 
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +59,8 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    if (realm.isEmpty())
+                        databaseReference.child(email.replace(".", "")).setValue(new User(email, null));
                     RealmUtil.addToRealm(realm, email, null);
                     intent = new Intent(getBaseContext(), AlarmList.class);
                     startActivity(intent);
@@ -77,7 +84,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (!task.isSuccessful()) {
-                        Toast.makeText(getBaseContext(), R.string.sing_up_failed,
+                        Toast.makeText(getBaseContext(), task.getException().getMessage(),
                                 Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getBaseContext(), R.string.sing_up_successful,

@@ -19,30 +19,95 @@ public class RealmUtil {
             realm.beginTransaction();
             UserR userRealm = realm.createObject(UserR.class);
             userRealm.setUserName(email);
-            userRealm.setListAlarmsUsers(null);
+            userRealm.setListAlarmsUsers(realmList);
             realm.commitTransaction();
         }
     }
 
-    public static User passToDomain(UserR userRealm) {
-        List<AlarmUser> domainList = new ArrayList<>();
-        for (AlarmsUserR a : userRealm.getListAlarmsUsers()
+    public static void addAlarmToRealm(Realm realm, AlarmUser alarmUser) {
+        UserR userR = getUser(realm);
+        realm.beginTransaction();
+        userR.getListAlarmsUsers().add(new AlarmsUserR(userR.getListAlarmsUsers().size(),
+                alarmUser.getName(), alarmUser.getHour(), alarmUser.getMinute(),
+                alarmUser.getTemperature(), alarmUser.isTurnOn()));
+        realm.commitTransaction();
+    }
+
+
+    public static void editAlarmInRealm(Realm realm, int position, AlarmUser newAlarmUser) {
+        UserR userR = getUser(realm);
+
+        AlarmsUserR newAlarmUserRealm = passAlarmToRealm(realm, newAlarmUser);
+        deletedFromRealm(realm, position);
+
+        realm.beginTransaction();
+        userR.getListAlarmsUsers().add(newAlarmUserRealm);
+        userR.getListAlarmsUsers().sort("id");
+        realm.commitTransaction();
+    }
+
+    public static AlarmsUserR passAlarmToRealm(Realm realm, AlarmUser alarmUser) {
+        UserR userR = getUser(realm);
+        realm.beginTransaction();
+        AlarmsUserR alarmsUserR = realm.createObject(AlarmsUserR.class);
+        alarmsUserR.setId(userR.getListAlarmsUsers().size());
+        alarmsUserR.setName(alarmUser.getName());
+        alarmsUserR.setHour(alarmUser.getHour());
+        alarmsUserR.setMinute(alarmUser.getMinute());
+        alarmsUserR.setTemperature(alarmUser.getTemperature());
+        alarmsUserR.setTurnOn(alarmUser.isTurnOn());
+        realm.commitTransaction();
+        return alarmsUserR;
+    }
+
+    public static void deletedFromRealm(Realm realm, int position) {
+        UserR userR = getUser(realm);
+        realm.beginTransaction();
+        userR.getListAlarmsUsers().remove(position);
+        realm.commitTransaction();
+    }
+
+    public static UserR getUser(Realm realm) {
+        realm.beginTransaction();
+        UserR userRealm = realm.where(UserR.class).findFirst();
+        realm.commitTransaction();
+        return userRealm;
+    }
+
+    public static List<AlarmUser> getNewList() {
+        List<AlarmUser> alarmUsers = new ArrayList<>();
+        Realm realm = Realm.getDefaultInstance();
+        UserR userR = getUser(realm);
+        for (AlarmsUserR a : userR.getListAlarmsUsers()
                 ) {
-            domainList.add(new AlarmUser(a.getName(), a.getHour(), a.getTemperature(), a.isTurnOn()));
+            alarmUsers.add(new AlarmUser(a.getId(), a.getName(), a.getHour(), a.getMinute(), a.getTemperature(), a.isTurnOn()));
         }
+        return alarmUsers;
+    }
+
+    public static User passToDomain(UserR userRealm) {
+        List<AlarmUser> domainList = getNewList();
 
         User userDomain = new User(userRealm.getUserName(), domainList);
         return userDomain;
     }
 
-    public static UserR passToRealm(User user){
-        RealmList<AlarmsUserR> realmList = new RealmList<>();
-        for (AlarmUser a : user.getListAlarm()
+    public static void upgradeListRealm(Realm realm, List<AlarmUser> listAlarm) {
+        UserR user = getUser(realm);
+        for (AlarmUser a : listAlarm
                 ) {
-            realmList.add(new AlarmsUserR(a.getName(), a.getHour(), a.getTemperature(), a.isTurnOn()));
+            realm.beginTransaction();
+            AlarmsUserR alarmsUserR = realm.createObject(AlarmsUserR.class);
+            alarmsUserR.setId(user.getListAlarmsUsers().size());
+            alarmsUserR.setName(a.getName());
+            alarmsUserR.setHour(a.getHour());
+            alarmsUserR.setMinute(a.getMinute());
+            alarmsUserR.setTemperature(a.getTemperature());
+            alarmsUserR.setTurnOn(a.isTurnOn());
+            user.getListAlarmsUsers().add(alarmsUserR);
+            realm.commitTransaction();
         }
-
-        UserR userRealm = new UserR(user.getUserName(), realmList);
-        return userRealm;
     }
+
+
 }
